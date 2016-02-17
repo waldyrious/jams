@@ -509,15 +509,16 @@ def transcription(ref, est, **kwargs):
     >>> # Load in the JAMS objects
     >>> ref_jam = jams.load('reference.jams')
     >>> est_jam = jams.load('estimated.jams')
-    >>> # Select the first relevant annotations
+    >>> # Select the first relevant annotations. You can use any annotation
+    >>> # type that can be converted to pitch_hz (such as pitch_midi)
     >>> ref_ann = ref_jam.search(namespace='pitch_hz')[0]
-    >>> est_ann = est_jam.search(namespace='pitch_hz')[0]
+    >>> est_ann = est_jam.search(namespace='pitch_midi')[0]
     >>> scores = jams.eval.transcription(ref_ann, est_ann)
     '''
 
     namespace = 'pitch_hz'
-    validate_annotation(ref, namespace)
-    validate_annotation(est, namespace)
+    ref = coerce_annotation(ref, namespace)
+    est = coerce_annotation(est, namespace)
     ref_intervals, ref_pitches = ref.data.to_interval_values()
     est_intervals, est_pitches = est.data.to_interval_values()
 
