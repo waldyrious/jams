@@ -32,6 +32,8 @@ if [ ! -d "$src" ]; then
 
         source activate $ENV_NAME
 
+        # We need 0.4dev for sonification of pitch contours
+        pip install git+https://github.com/craffel/mir_eval.git
         pip install jsonschema
         pip install python-coveralls
         pip install numpydoc
